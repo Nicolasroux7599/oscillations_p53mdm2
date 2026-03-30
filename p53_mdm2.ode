@@ -17,6 +17,8 @@ kd2=kd2_p+(dnadam/(jdam+dnadam))*k_2pd2
 aux kd_2=kd2
 p53=p53tot-(p53U+p53UU)
 mdm2tot=mdm2cyt+(1/vratio)*mdm2nuc+mdm2P
+
+#applications de l'irradation entre le temps t1 et t2
 pulse(t1,t2)=ampl*(heav(t-t1)-heav(t-t2))
 ir= pulse(ton,toff)
 
@@ -46,6 +48,8 @@ par jdam=0.2
 par vratio=15
 par Jph=0.01
 par jdna=1
+
+#paramètres liés à l'irradation
 par ampl=1
 par ton=10, toff=20
 
