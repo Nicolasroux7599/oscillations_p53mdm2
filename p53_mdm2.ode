@@ -1,4 +1,5 @@
 # model p53 mdm2 network
+# pour faire les simulations avec xppauto : changer la méthode de calcul sur Vode (raccourci : U > M > C) 
 
 #equations différentielles
 
