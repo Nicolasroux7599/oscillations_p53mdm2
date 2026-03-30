@@ -1,0 +1,60 @@
+# model p53 mdm2 network
+
+#equations différentielles
+
+dp53tot/dt=ks53-kd53_p*p53tot-kd53*p53UU
+dp53U/dt=kf*mdm2nuc*p53+kr*p53UU-p53U*(kr+kf*mdm2nuc)-kd53_p*p53U
+dp53UU/dt=kf*mdm2nuc*p53U-p53UU*kr-p53UU*kd53_p-p53UU*kd53
+dmdm2nuc/dt=vratio*(ki*mdm2P-ko*mdm2nuc)-kd2*mdm2nuc
+dmdm2cyt/dt=ks2_p+(ks2*p53tot^m)/(js^m+p53tot^m)-kd2_p*mdm2cyt+kdeph*mdm2P-(kph*mdm2cyt)/(Jph+p53tot)
+dmdm2P/dt=(kph*mdm2cyt)/(Jph+p53tot)-kdeph*mdm2P-ki*mdm2P+ko*mdm2nuc-kd2_p*mdm2P
+ddnadam/dt=kdna*ir-kddna*p53tot*(dnadam/(jdna+dnadam))
+
+#equations
+
+kd2=kd2_p+(dnadam/(jdam+dnadam))*k_2pd2
+aux kd_2=kd2
+p53=p53tot-(p53U+p53UU)
+mdm2tot=mdm2cyt+(1/vratio)*mdm2nuc+mdm2P
+pulse(t1,t2)=ampl*(heav(t-t1)-heav(t-t2))
+ir= pulse(ton,toff)
+
+#constantes de vitesse (min^-1)
+
+par ks2_p=0.0015
+par ks2=0.006
+par kd2_p=0.01
+par k_2pd2=0.01
+par kph=0.05
+par kdeph=6
+par ki=14
+par ko=0.5
+par ks53=0.055
+par kd53=8
+par kd53_p=0.0055
+par kf=8.8
+par kr=2.5
+par kdna=0.18
+par kddna=0.017
+
+#autre constantes (sans dimensions)
+
+par m=3
+par js=1.2
+par jdam=0.2
+par vratio=15
+par Jph=0.01
+par jdna=1
+par ampl=1
+par ton=10, toff=20
+
+#integration parametres
+
+@ total=1200, dt=0.5
+@maxstor=1000000
+
+#conditions initiales
+
+ini p53tot=0.07, p53U=0.02, p53UU=0.01
+ini mdm2nuc=0.33, mdm2cyt=0.12, mdm2P=0.01
+ini dnadam=0
